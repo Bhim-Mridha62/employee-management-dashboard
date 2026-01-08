@@ -1,7 +1,19 @@
 import React, { useEffect } from 'react';
+import { FaCheck, FaExclamationTriangle, FaInfoCircle } from 'react-icons/fa';
 import './Modal.css';
 
-const Modal = ({
+interface ModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+    onConfirm: () => void;
+    title: string;
+    message: string;
+    confirmText?: string;
+    cancelText?: string;
+    type?: 'warning' | 'info' | 'success';
+}
+
+const Modal: React.FC<ModalProps> = ({
     isOpen,
     onClose,
     onConfirm,
@@ -9,10 +21,10 @@ const Modal = ({
     message,
     confirmText = 'Confirm',
     cancelText = 'Cancel',
-    type = 'warning', // warning, info, success
+    type = 'warning',
 }) => {
     useEffect(() => {
-        const handleEscape = (e) => {
+        const handleEscape = (e: KeyboardEvent) => {
             if (e.key === 'Escape') {
                 onClose();
             }
@@ -34,16 +46,16 @@ const Modal = ({
     const getIcon = () => {
         switch (type) {
             case 'warning':
-                return '⚠️';
+                return <FaExclamationTriangle />;
             case 'success':
-                return '✓';
+                return <FaCheck />;
             case 'info':
             default:
-                return 'ℹ';
+                return <FaInfoCircle />;
         }
     };
 
-    const handleOverlayClick = (e) => {
+    const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
         if (e.target === e.currentTarget) {
             onClose();
         }

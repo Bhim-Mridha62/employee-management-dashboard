@@ -1,5 +1,5 @@
 // Indian States for dropdown
-export const INDIAN_STATES = [
+export const INDIAN_STATES: string[] = [
     'Andhra Pradesh',
     'Arunachal Pradesh',
     'Assam',
@@ -33,21 +33,28 @@ export const INDIAN_STATES = [
     'Ladakh',
 ];
 
-export const GENDER_OPTIONS = [
+interface SelectOption {
+    value: string;
+    label: string;
+}
+
+export const GENDER_OPTIONS: SelectOption[] = [
     { value: 'male', label: 'Male' },
     { value: 'female', label: 'Female' },
     { value: 'other', label: 'Other' },
 ];
 
-export const STATUS_OPTIONS = [
+export const STATUS_OPTIONS: SelectOption[] = [
     { value: 'all', label: 'All Status' },
     { value: 'active', label: 'Active' },
     { value: 'inactive', label: 'Inactive' },
 ];
 
-export const GENDER_FILTER_OPTIONS = [
+export const GENDER_FILTER_OPTIONS: SelectOption[] = [
     { value: 'all', label: 'All Genders' },
     { value: 'male', label: 'Male' },
     { value: 'female', label: 'Female' },
     { value: 'other', label: 'Other' },
 ];
+
+export const ITEMS_PER_PAGE = 10;

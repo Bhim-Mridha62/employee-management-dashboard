@@ -1,8 +1,20 @@
 import React from 'react';
 import { GENDER_FILTER_OPTIONS, STATUS_OPTIONS } from '../../utils/constants';
+import { GenderFilter, StatusFilter } from '../../types';
+import { FaSearch, FaTimes } from 'react-icons/fa';
 import './SearchFilter.css';
 
-const SearchFilter = ({
+interface SearchFilterProps {
+    searchQuery: string;
+    onSearchChange: (query: string) => void;
+    genderFilter: GenderFilter;
+    onGenderChange: (filter: GenderFilter) => void;
+    statusFilter: StatusFilter;
+    onStatusChange: (filter: StatusFilter) => void;
+    onClearFilters: () => void;
+}
+
+const SearchFilter: React.FC<SearchFilterProps> = ({
     searchQuery,
     onSearchChange,
     genderFilter,
@@ -17,7 +29,7 @@ const SearchFilter = ({
     return (
         <div className="search-filter">
             <div className="search-input-wrapper">
-                <span className="search-icon">🔍</span>
+                <span className="search-icon"><FaSearch /></span>
                 <input
                     type="text"
                     className="search-input"
@@ -30,7 +42,7 @@ const SearchFilter = ({
                 <select
                     className="filter-select"
                     value={genderFilter}
-                    onChange={(e) => onGenderChange(e.target.value)}
+                    onChange={(e) => onGenderChange(e.target.value as GenderFilter)}
                 >
                     {GENDER_FILTER_OPTIONS.map((option) => (
                         <option key={option.value} value={option.value}>
@@ -41,7 +53,7 @@ const SearchFilter = ({
                 <select
                     className="filter-select"
                     value={statusFilter}
-                    onChange={(e) => onStatusChange(e.target.value)}
+                    onChange={(e) => onStatusChange(e.target.value as StatusFilter)}
                 >
                     {STATUS_OPTIONS.map((option) => (
                         <option key={option.value} value={option.value}>
@@ -54,7 +66,7 @@ const SearchFilter = ({
                     onClick={onClearFilters}
                     disabled={!hasActiveFilters}
                 >
-                    Clear Filters
+                    <FaTimes /> Clear Filters
                 </button>
             </div>
         </div>

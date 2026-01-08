@@ -1,30 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useEmployees } from '../../context/EmployeeContext';
+import { useNotification } from '../../context/NotificationContext';
 import { INDIAN_STATES, GENDER_OPTIONS } from '../../utils/constants';
 import { formatDateForInput } from '../../utils/helpers';
+import { EmployeeFormData } from '../../types';
 import ImageUpload from '../../components/ImageUpload/ImageUpload';
 import Toggle from '../../components/Toggle/Toggle';
 import Loader from '../../components/Loader/Loader';
 import './EmployeeForm.css';
 
-const EmployeeForm = () => {
-    const { id } = useParams();
+const EmployeeForm: React.FC = () => {
+    const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const { addEmployee, updateEmployee, getEmployeeById, isLoading } = useEmployees();
+    const { showNotification } = useNotification();
 
     const isEditMode = Boolean(id);
 
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<EmployeeFormData>({
         fullName: '',
-        gender: '',
+        gender: '' as any,
         dob: '',
-        profileImage: null,
+        profileImage: undefined,
         state: '',
         isActive: true,
     });
 
-    const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState<Partial<Record<keyof EmployeeFormData, string>>>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
@@ -40,13 +43,14 @@ const EmployeeForm = () => {
                     isActive: employee.isActive,
                 });
             } else {
+                showNotification('Employee not found', 'error');
                 navigate('/employees');
             }
         }
-    }, [id, isEditMode, getEmployeeById, navigate]);
+    }, [id, isEditMode, getEmployeeById, navigate, showNotification]);
 
     const validateForm = () => {
-        const newErrors = {};
+        const newErrors: Partial<Record<keyof EmployeeFormData, string>> = {};
 
         if (!formData.fullName.trim()) {
             newErrors.fullName = 'Full name is required';
@@ -76,7 +80,7 @@ const EmployeeForm = () => {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleChange = (field, value) => {
+    const handleChange = (field: keyof EmployeeFormData, value: any) => {
         setFormData((prev) => ({ ...prev, [field]: value }));
         // Clear error when field changes
         if (errors[field]) {
@@ -84,7 +88,7 @@ const EmployeeForm = () => {
         }
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
         if (!validateForm()) {
@@ -97,14 +101,17 @@ const EmployeeForm = () => {
         await new Promise((resolve) => setTimeout(resolve, 500));
 
         try {
-            if (isEditMode) {
+            if (isEditMode && id) {
                 updateEmployee(id, formData);
+                showNotification('Employee updated successfully', 'success');
             } else {
                 addEmployee(formData);
+                showNotification('New employee added successfully', 'success');
             }
             navigate('/employees');
         } catch (error) {
             console.error('Error saving employee:', error);
+            showNotification('Failed to save employee. Please try again.', 'error');
         } finally {
             setIsSubmitting(false);
         }

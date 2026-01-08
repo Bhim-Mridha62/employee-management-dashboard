@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { NavLink, useLocation, useNavigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
+import { useNotification } from '../../context/NotificationContext';
+import { FaUsers, FaChartPie, FaUserPlus, FaSignOutAlt, FaSun, FaMoon, FaBars } from 'react-icons/fa';
+import Notification from '../Notification/Notification';
 import './Layout.css';
 
-const Layout = ({ children }) => {
+const Layout: React.FC = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const { user, logout } = useAuth();
+    const { theme, toggleTheme } = useTheme();
     const location = useLocation();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        document.title = `${getPageTitle()} | Employee Dashboard`;
+    }, [location]);
 
     const getPageTitle = () => {
         const path = location.pathname;
@@ -29,10 +38,11 @@ const Layout = ({ children }) => {
 
     return (
         <div className="layout">
+            <Notification />
             <aside className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
                 <div className="sidebar-header">
                     <div className="logo">
-                        <div className="logo-icon">👥</div>
+                        <div className="logo-icon"><FaUsers /></div>
                         <div>
                             <div className="logo-text">EmpManager</div>
                             <div className="logo-subtext">Dashboard</div>
@@ -46,15 +56,16 @@ const Layout = ({ children }) => {
                         className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
                         onClick={closeSidebar}
                     >
-                        <span className="nav-link-icon">📊</span>
+                        <span className="nav-link-icon"><FaChartPie /></span>
                         Dashboard
                     </NavLink>
                     <NavLink
                         to="/employees"
                         className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
                         onClick={closeSidebar}
+                        end
                     >
-                        <span className="nav-link-icon">👤</span>
+                        <span className="nav-link-icon"><FaUsers /></span>
                         Employees
                     </NavLink>
                     <NavLink
@@ -62,7 +73,7 @@ const Layout = ({ children }) => {
                         className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
                         onClick={closeSidebar}
                     >
-                        <span className="nav-link-icon">➕</span>
+                        <span className="nav-link-icon"><FaUserPlus /></span>
                         Add Employee
                     </NavLink>
                 </nav>
@@ -78,7 +89,7 @@ const Layout = ({ children }) => {
                         </div>
                     </div>
                     <button className="logout-btn" onClick={handleLogout}>
-                        <span>🚪</span>
+                        <span className="nav-link-icon"><FaSignOutAlt /></span>
                         Logout
                     </button>
                 </div>
@@ -88,17 +99,23 @@ const Layout = ({ children }) => {
 
             <main className="main-content">
                 <header className="header">
-                    <button
-                        className="mobile-menu-btn"
-                        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                    >
-                        ☰
-                    </button>
-                    <h1 className="header-title">{getPageTitle()}</h1>
-                    <div className="header-actions"></div>
+                    <div className="header-left">
+                        <button
+                            className="mobile-menu-btn"
+                            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                        >
+                            <FaBars />
+                        </button>
+                        <h1 className="header-title">{getPageTitle()}</h1>
+                    </div>
+                    <div className="header-actions">
+                        <button className="theme-toggle" onClick={toggleTheme} title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}>
+                            {theme === 'dark' ? <FaSun /> : <FaMoon />}
+                        </button>
+                    </div>
                 </header>
 
-                <div className="page-content">{children}</div>
+                <div className="page-content"><Outlet /></div>
             </main>
         </div>
     );

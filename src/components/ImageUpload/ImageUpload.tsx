@@ -1,11 +1,18 @@
-import React, { useRef } from 'react';
+import React, { useRef, ChangeEvent } from 'react';
 import { fileToBase64 } from '../../utils/helpers';
+import { FaCamera } from 'react-icons/fa';
 import './ImageUpload.css';
 
-const ImageUpload = ({ value, onChange, error }) => {
-    const inputRef = useRef(null);
+interface ImageUploadProps {
+    value: string | null | undefined;
+    onChange: (value: string | null) => void;
+    error?: string;
+}
 
-    const handleFileChange = async (e) => {
+const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange, error }) => {
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
             // Validate file type
@@ -27,7 +34,7 @@ const ImageUpload = ({ value, onChange, error }) => {
         }
     };
 
-    const handleRemove = (e) => {
+    const handleRemove = (e: React.MouseEvent) => {
         e.stopPropagation();
         onChange(null);
         if (inputRef.current) {
@@ -61,7 +68,7 @@ const ImageUpload = ({ value, onChange, error }) => {
                     </>
                 ) : (
                     <div className="image-upload-placeholder">
-                        <span className="image-upload-icon">📷</span>
+                        <span className="image-upload-icon"><FaCamera /></span>
                         <span className="image-upload-text">
                             Click to upload
                             <br />

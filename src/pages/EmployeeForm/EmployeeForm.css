@@ -1,6 +1,7 @@
 .employee-form-page {
     animation: fadeIn 0.3s ease;
-    max-width: 700px;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .form-header {
@@ -10,21 +11,22 @@
 .form-header h2 {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #f1f5f9;
+    color: var(--color-text-primary);
     margin: 0 0 0.5rem 0;
 }
 
 .form-header p {
-    color: #64748b;
+    color: var(--color-text-secondary);
     font-size: 0.875rem;
     margin: 0;
 }
 
 .employee-form-card {
-    background: linear-gradient(145deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
-    border: 1px solid rgba(99, 102, 241, 0.15);
-    border-radius: 16px;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
     padding: 2rem;
+    box-shadow: var(--shadow-md);
 }
 
 .employee-form {
@@ -52,21 +54,21 @@
 .form-label {
     font-size: 0.875rem;
     font-weight: 500;
-    color: #e2e8f0;
+    color: var(--color-text-secondary);
 }
 
 .form-label .required {
-    color: #ef4444;
+    color: var(--color-danger);
     margin-left: 0.25rem;
 }
 
 .form-input,
 .form-select {
     padding: 0.875rem 1rem;
-    background: rgba(15, 23, 42, 0.6);
-    border: 1px solid rgba(99, 102, 241, 0.2);
-    border-radius: 10px;
-    color: #f1f5f9;
+    background: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-text-primary);
     font-size: 0.875rem;
     transition: all 0.2s ease;
 }
@@ -74,17 +76,17 @@
 .form-input:focus,
 .form-select:focus {
     outline: none;
-    border-color: #6366f1;
+    border-color: var(--color-primary);
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
 .form-input::placeholder {
-    color: #64748b;
+    color: var(--color-text-muted);
 }
 
 .form-input.error,
 .form-select.error {
-    border-color: #ef4444;
+    border-color: var(--color-danger);
 }
 
 .form-input.error:focus,
@@ -102,19 +104,22 @@
 }
 
 .form-select option {
-    background: #1e293b;
-    color: #f1f5f9;
+    background: var(--color-bg-secondary);
+    color: var(--color-text-primary);
 }
 
 .form-error {
     font-size: 0.75rem;
-    color: #ef4444;
+    color: var(--color-danger);
 }
 
 .radio-group {
     display: flex;
     gap: 1.5rem;
     flex-wrap: wrap;
+    align-items: center;
+    min-height: 42px;
+    /* Accessbility touch target */
 }
 
 .radio-option {
@@ -127,13 +132,13 @@
 .radio-input {
     width: 18px;
     height: 18px;
-    accent-color: #6366f1;
+    accent-color: var(--color-primary);
     cursor: pointer;
 }
 
 .radio-label {
     font-size: 0.875rem;
-    color: #e2e8f0;
+    color: var(--color-text-secondary);
 }
 
 .status-toggle {
@@ -141,13 +146,14 @@
     align-items: center;
     gap: 1rem;
     padding: 1rem;
-    background: rgba(15, 23, 42, 0.4);
-    border-radius: 10px;
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
 }
 
 .status-label {
     font-size: 0.875rem;
-    color: #e2e8f0;
+    color: var(--color-text-secondary);
 }
 
 .form-actions {
@@ -155,15 +161,15 @@
     gap: 1rem;
     margin-top: 1rem;
     padding-top: 1.5rem;
-    border-top: 1px solid rgba(99, 102, 241, 0.1);
+    border-top: 1px solid var(--color-border);
 }
 
 .btn-submit {
     flex: 1;
     padding: 0.875rem 1.5rem;
-    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
     border: none;
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     color: white;
     font-size: 0.875rem;
     font-weight: 600;
@@ -176,9 +182,9 @@
 }
 
 .btn-submit:hover:not(:disabled) {
-    background: linear-gradient(135deg, #4f46e5, #4338ca);
+    background: linear-gradient(135deg, var(--color-primary-hover), var(--color-primary));
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.4);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
 }
 
 .btn-submit:disabled {
@@ -188,10 +194,10 @@
 
 .btn-cancel {
     padding: 0.875rem 1.5rem;
-    background: rgba(71, 85, 105, 0.5);
-    border: none;
-    border-radius: 10px;
-    color: #e2e8f0;
+    background: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-text-secondary);
     font-size: 0.875rem;
     font-weight: 500;
     cursor: pointer;
@@ -201,7 +207,8 @@
 }
 
 .btn-cancel:hover {
-    background: rgba(71, 85, 105, 0.7);
+    background: var(--color-border);
+    color: var(--color-text-primary);
 }
 
 @keyframes fadeIn {

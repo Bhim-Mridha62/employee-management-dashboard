@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import Loader from '../../components/Loader/Loader';
+import { FaUser, FaLock, FaUsers } from 'react-icons/fa';
 import './Login.css';
 
-const Login = () => {
+const Login: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -21,7 +22,7 @@ const Login = () => {
         return <Navigate to="/dashboard" replace />;
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         setError('');
 
@@ -38,7 +39,7 @@ const Login = () => {
             if (result.success) {
                 navigate('/dashboard');
             } else {
-                setError(result.error);
+                setError(result.error || 'Login failed');
             }
         } catch (err) {
             setError('An error occurred. Please try again.');
@@ -52,7 +53,7 @@ const Login = () => {
             <div className="login-container">
                 <div className="login-card">
                     <div className="login-header">
-                        <div className="login-logo">👥</div>
+                        <div className="login-logo"><FaUsers /></div>
                         <h1 className="login-title">Welcome Back</h1>
                         <p className="login-subtitle">Sign in to access your dashboard</p>
                     </div>
@@ -61,7 +62,7 @@ const Login = () => {
                         <div className="form-group">
                             <label className="form-label">Username</label>
                             <div className="form-input-wrapper">
-                                <span className="form-input-icon">👤</span>
+                                <span className="form-input-icon"><FaUser /></span>
                                 <input
                                     type="text"
                                     className="form-input"
@@ -77,7 +78,7 @@ const Login = () => {
                         <div className="form-group">
                             <label className="form-label">Password</label>
                             <div className="form-input-wrapper">
-                                <span className="form-input-icon">🔒</span>
+                                <span className="form-input-icon"><FaLock /></span>
                                 <input
                                     type="password"
                                     className="form-input"

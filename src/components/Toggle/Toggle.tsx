@@ -1,7 +1,13 @@
 import React from 'react';
 import './Toggle.css';
 
-const Toggle = ({ isActive, onToggle, showLabel = true }) => {
+interface ToggleProps {
+    isActive: boolean;
+    onToggle: () => void;
+    showLabel?: boolean;
+}
+
+const Toggle: React.FC<ToggleProps> = ({ isActive, onToggle, showLabel = true }) => {
     return (
         <div className="toggle-container">
             <button

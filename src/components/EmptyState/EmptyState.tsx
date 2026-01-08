@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import './EmptyState.css';
 
-const EmptyState = ({
+interface EmptyStateProps {
+    icon?: ReactNode | string;
+    title?: string;
+    message?: string;
+    actionText?: string;
+    onAction?: () => void;
+}
+
+const EmptyState: React.FC<EmptyStateProps> = ({
     icon = '📋',
     title = 'No Data Found',
     message = 'There are no items to display at the moment.',

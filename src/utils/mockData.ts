@@ -1,4 +1,6 @@
-export const mockEmployees = [
+import { Employee } from '../types';
+
+export const mockEmployees: Employee[] = [
     {
         id: 'EMP-A1B2C3D4',
         fullName: 'Rahul Sharma',
@@ -6,7 +8,7 @@ export const mockEmployees = [
         dob: '1990-05-15',
         state: 'Maharashtra',
         isActive: true,
-        profileImage: null,
+        profileImage: undefined,
     },
     {
         id: 'EMP-E5F6G7H8',
@@ -15,7 +17,7 @@ export const mockEmployees = [
         dob: '1988-08-22',
         state: 'Gujarat',
         isActive: true,
-        profileImage: null,
+        profileImage: undefined,
     },
     {
         id: 'EMP-I9J0K1L2',
@@ -24,7 +26,7 @@ export const mockEmployees = [
         dob: '1995-02-10',
         state: 'Delhi',
         isActive: false,
-        profileImage: null,
+        profileImage: undefined,
     },
     {
         id: 'EMP-M3N4O5P6',
@@ -33,7 +35,7 @@ export const mockEmployees = [
         dob: '1992-11-30',
         state: 'Telangana',
         isActive: true,
-        profileImage: null,
+        profileImage: undefined,
     },
     {
         id: 'EMP-Q7R8S9T0',
@@ -42,7 +44,7 @@ export const mockEmployees = [
         dob: '1987-04-05',
         state: 'Punjab',
         isActive: true,
-        profileImage: null,
+        profileImage: undefined,
     },
     {
         id: 'EMP-U1V2W3X4',
@@ -51,7 +53,7 @@ export const mockEmployees = [
         dob: '1993-09-18',
         state: 'Uttar Pradesh',
         isActive: false,
-        profileImage: null,
+        profileImage: undefined,
     },
     {
         id: 'EMP-Y5Z6A7B8',
@@ -60,7 +62,7 @@ export const mockEmployees = [
         dob: '1991-01-25',
         state: 'Kerala',
         isActive: true,
-        profileImage: null,
+        profileImage: undefined,
     },
     {
         id: 'EMP-C9D0E1F2',
@@ -69,7 +71,7 @@ export const mockEmployees = [
         dob: '1989-07-12',
         state: 'Tamil Nadu',
         isActive: true,
-        profileImage: null,
+        profileImage: undefined,
     },
     {
         id: 'EMP-G3H4I5J6',
@@ -78,7 +80,7 @@ export const mockEmployees = [
         dob: '1994-03-08',
         state: 'Karnataka',
         isActive: false,
-        profileImage: null,
+        profileImage: undefined,
     },
     {
         id: 'EMP-K7L8M9N0',
@@ -87,7 +89,7 @@ export const mockEmployees = [
         dob: '1996-12-20',
         state: 'Kerala',
         isActive: true,
-        profileImage: null,
+        profileImage: undefined,
     },
     {
         id: 'EMP-O1P2Q3R4',
@@ -96,7 +98,7 @@ export const mockEmployees = [
         dob: '1985-06-14',
         state: 'Rajasthan',
         isActive: true,
-        profileImage: null,
+        profileImage: undefined,
     },
     {
         id: 'EMP-S5T6U7V8',
@@ -105,6 +107,6 @@ export const mockEmployees = [
         dob: '1997-10-03',
         state: 'Madhya Pradesh',
         isActive: true,
-        profileImage: null,
+        profileImage: undefined,
     },
 ];

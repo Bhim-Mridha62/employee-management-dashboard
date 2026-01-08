@@ -1,7 +1,13 @@
 import React from 'react';
 import './Loader.css';
 
-const Loader = ({ fullScreen = false, text = 'Loading...', size = 'normal' }) => {
+interface LoaderProps {
+    fullScreen?: boolean;
+    text?: string;
+    size?: 'small' | 'normal' | 'large';
+}
+
+const Loader: React.FC<LoaderProps> = ({ fullScreen = false, text = 'Loading...', size = 'normal' }) => {
     if (fullScreen) {
         return (
             <div className="loader-overlay">

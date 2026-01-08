@@ -1,13 +1,13 @@
 import { v4 as uuidv4 } from 'uuid';
 
 // Generate unique employee ID
-export const generateEmployeeId = () => {
+export const generateEmployeeId = (): string => {
     const uuid = uuidv4();
     return `EMP-${uuid.substring(0, 8).toUpperCase()}`;
 };
 
 // Format date for display
-export const formatDate = (dateString) => {
+export const formatDate = (dateString: string): string => {
     if (!dateString) return '';
     const date = new Date(dateString);
     return date.toLocaleDateString('en-IN', {
@@ -18,7 +18,7 @@ export const formatDate = (dateString) => {
 };
 
 // Format date for input field
-export const formatDateForInput = (dateString) => {
+export const formatDateForInput = (dateString: string): string => {
     if (!dateString) return '';
     const date = new Date(dateString);
     return date.toISOString().split('T')[0];
@@ -26,7 +26,7 @@ export const formatDateForInput = (dateString) => {
 
 // LocalStorage helpers
 export const storage = {
-    get: (key, defaultValue = null) => {
+    get: <T>(key: string, defaultValue: T | null = null): T | null => {
         try {
             const item = localStorage.getItem(key);
             return item ? JSON.parse(item) : defaultValue;
@@ -35,14 +35,14 @@ export const storage = {
             return defaultValue;
         }
     },
-    set: (key, value) => {
+    set: <T>(key: string, value: T): void => {
         try {
             localStorage.setItem(key, JSON.stringify(value));
         } catch (error) {
             console.error(`Error saving ${key} to localStorage:`, error);
         }
     },
-    remove: (key) => {
+    remove: (key: string): void => {
         try {
             localStorage.removeItem(key);
         } catch (error) {
@@ -52,19 +52,19 @@ export const storage = {
 };
 
 // Validate email format
-export const isValidEmail = (email) => {
+export const isValidEmail = (email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 };
 
 // Capitalize first letter
-export const capitalize = (str) => {
+export const capitalize = (str: string): string => {
     if (!str) return '';
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 };
 
 // Calculate age from DOB
-export const calculateAge = (dob) => {
+export const calculateAge = (dob: string): number | string => {
     if (!dob) return '';
     const today = new Date();
     const birthDate = new Date(dob);
@@ -77,11 +77,21 @@ export const calculateAge = (dob) => {
 };
 
 // Convert file to base64
-export const fileToBase64 = (file) => {
+export const fileToBase64 = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
+        reader.onload = () => resolve(reader.result as string);
         reader.onerror = (error) => reject(error);
     });
+};
+
+// Get initials from name
+export const getInitials = (name: string): string => {
+    return name
+        .split(' ')
+        .map((n) => n[0])
+        .join('')
+        .toUpperCase()
+        .slice(0, 2);
 };
